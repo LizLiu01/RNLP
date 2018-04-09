@@ -1,6 +1,11 @@
 language: r
 
-env
-  - TRAVIS_R_VERSION=3.4.2
-before_install:
-  - testthat
+script:
+  - apt-get update
+  - apt-get install apt-transport-https
+  - echo "deb http://cran.csiro.au/bin/linux/ubuntu trusty/" > /etc/apt/sources.list.d/r.list
+  - apt-get update
+  - apt-get -y --force-yes install r-base
+  - Rscript tests/setup.R
+  - Rscript tests/addition_function_test.R
+
