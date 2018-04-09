@@ -1,0 +1,6 @@
+language: r
+
+env
+  - TRAVIS_R_VERSION=3.4.2
+before_install:
+  - testthat
