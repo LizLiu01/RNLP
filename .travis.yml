@@ -1,11 +1,17 @@
+sudu: true
+
 language: r
+r:
+  - oldrel
+  - release
+  - devel
 
+cache: packages
+
+install:
+  - Rscript -e 'install.packages(c("devtools","roxygen2","testthat"));devtools::install_deps("pkg")'
 script:
-  - apt-get update
-  - apt-get install apt-transport-https
-  - echo "deb http://cran.csiro.au/bin/linux/ubuntu trusty/" > /etc/apt/sources.list.d/r.list
-  - apt-get update
-  - apt-get -y --force-yes install r-base
-  - Rscript tests/setup.R
-  - Rscript tests/addition_function_test.R
+  - Rscript -e 'devtools::check("pkg")
 
+after_success:
+  - Rscript test/addition_function_test.R
